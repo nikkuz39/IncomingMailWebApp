@@ -1,0 +1,40 @@
+﻿@model IncomingMailWebApp.Models.ViewModelLetter;
+@{
+    ViewData["Title"] = "Add Tag";
+}
+<h3>@ViewData["Title"]</h3>
+
+<form asp-action="createtag" asp-controller="tag">
+    <div class="form-group">
+        <label class="control-label">Name</label>
+        <input type="text" asp-for="Tag.TagName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+
+<table class="table">
+    <thread>
+        <tr><th>Name</th><th></th></tr>
+    </thread>
+    <tbody>
+        @if (Model == null)
+        {
+            <tr><tg>No data</tg></tr>
+        }
+        else
+        {
+            @foreach (var tag in Model.Tags)
+            {
+                <tr>
+                    <td>@tag.TagName</td>
+                    <td>
+                        <a asp-action="edittag" asp-controller="tag" asp-route-id="@tag.Id">Edit</a>
+                        <a asp-action="deletetag" asp-controller="tag" asp-route-id="@tag.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

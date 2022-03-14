@@ -1,0 +1,40 @@
+﻿@model IncomingMailWebApp.Models.ViewModelLetter;
+@{
+    ViewData["Title"] = "Add Addressee";
+}
+<h3>@ViewData["Title"]</h3>
+
+<form asp-action="createaddressee" asp-controller="addressee">
+    <div class="form-group">
+        <label class="control-label">Name</label>
+        <input type="text" asp-for="Addressee.AddresseeName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+
+<table class="table">
+    <thread>
+        <tr><th>Name</th><th></th></tr>
+    </thread>
+    <tbody>
+        @if (Model == null)
+        {
+            <tr><tg>No data</tg></tr>
+        }
+        else
+        {
+            @foreach (var addressee in Model.Addressees)
+            {
+                <tr>
+                    <td>@addressee.AddresseeName</td>
+                    <td>
+                        <a asp-action="editaddressee" asp-controller="addressee" asp-route-id="@addressee.Id">Edit</a>
+                        <a asp-action="deleteaddressee" asp-controller="addressee" asp-route-id="@addressee.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

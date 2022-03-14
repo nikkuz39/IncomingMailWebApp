@@ -1,0 +1,40 @@
+﻿@model IncomingMailWebApp.Models.ViewModelLetter;
+@{
+    ViewData["Title"] = "Add Sender";
+}
+<h3>@ViewData["Title"]</h3>
+
+<form asp-action="createsender" asp-controller="sender">
+    <div class="form-group">
+        <label class="control-label">Name</label>
+        <input type="text" asp-for="Sender.SenderName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+
+<table class="table">
+    <thread>
+        <tr><th>Name</th><th></th></tr>
+    </thread>
+    <tbody>
+        @if (Model == null)
+        {
+            <tr><tg>No data</tg></tr>
+        }
+        else
+        {
+            @foreach (var sender in Model.Senders)
+            {
+                <tr>
+                    <td>@sender.SenderName</td>
+                    <td>
+                        <a asp-action="editsender" asp-controller="sender" asp-route-id="@sender.Id">Edit</a>
+                        <a asp-action="deletesender" asp-controller="sender" asp-route-id="@sender.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

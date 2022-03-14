@@ -1,0 +1,80 @@
+﻿@model IncomingMailWebApp.Models.ViewModelLetter;
+@{
+    ViewData["Title"] = "Registration of incoming mail";
+}
+<h3>@ViewData["Title"]</h3>
+
+<form asp-action="createletter" asp-controller="home">
+    <div class="row">
+        <div class="col">
+            <label class="control-label">Name</label>
+            <input type="text" asp-for="Mail.LetterTitle" class="form-control" />
+        </div>
+        <div class="col">
+            <label class="control-label">Date</label>
+            <input type="date" asp-for="Mail.DateOfRegistration" class="form-control" />
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col">
+            <label class="control-label">Addressee</label>
+            @*<input type="text" asp-for="Addressee.AddresseeName" class="form-control" />*@
+            <select asp-for="Addressee.Id" required class="form-control">
+                @if (Model == null)
+                {
+                    <option>No data</option>
+                }
+                else
+                {
+                    @foreach (var addressee in Model.Addressees)
+                    {
+                        <option value="@addressee.Id">@addressee.AddresseeName</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col">
+            <label class="control-label">Sender</label>
+            @*<input type="text" asp-for="Sender.SenderName" class="form-control" />*@
+            <select asp-for="Sender.Id" required class="form-control">
+                @if (Model == null)
+                {
+                    <option>No data</option>
+                }
+                else
+                {
+                    @foreach (var sender in Model.Senders)
+                    {
+                        <option value="@sender.Id">@sender.SenderName</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>    
+
+    <div class="form-group">
+        <div >
+            <label class="control-label">Content</label>
+            <textarea class="form-control" asp-for="Mail.ContentLetter" rows="3"></textarea>
+        </div>
+        <div>
+            <label >Tags</label>
+            <select multiple asp-for="TagsId" required class="form-control">
+                @if (Model == null)
+                {
+                    <option>No data</option>
+                }
+                else
+                {
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <option value="@tag.Id">@tag.TagName</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
